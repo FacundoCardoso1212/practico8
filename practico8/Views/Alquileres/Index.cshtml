@@ -1,0 +1,96 @@
+﻿@model IEnumerable<practico8.Models.Alquilere>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alquiler</h1>
+<h6>Buscar alquileres por ID</h6>
+<form method="post" action="@Url.Action("AlquilerXId", "Alquileres")">
+    <div>
+        <input type="text" name="id" id="id" />
+        <button type ="submit">Buscar por ID</button>
+    </div>
+</form>
+
+<h3>Historial Alquileres por clientes</h3>
+@if (Model.Count() == 0)
+{
+    <p>
+        "No hay alquileres para este cliente";
+    </p>
+}
+
+<p>
+    <a asp-action="Create">Crear Alquiler</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaTope)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEntregada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdClienteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCopiaNavigation.IdPeliculaNavigation.Titulo)
+            <th>
+                    @Html.DisplayNameFor(model => model.IdClienteNavigation.Id)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.IdClienteNavigation.Nombre)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.IdClienteNavigation.Telefono)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaAlquiler)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaTope)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEntregada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCopiaNavigation.IdPeliculaNavigation.Titulo)
+                </td>
+                <th>
+                        @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
+                </th>
+                <th>
+                        @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)
+                </th>
+                <th>
+                        @Html.DisplayFor(modelItem => item.IdClienteNavigation.Telefono)
+                </th
+
+                <hr />
+
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" class="btn btn-info btn-sm" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<practico8.Models.Copia>
+
+@{
+    ViewData["Title"] = "Index";
+    bool isFiltered = ViewBag.IsFiltered ?? false;
+}
+
+@if (isFiltered)
+{
+    <form method="get" action="@Url.Action("Index", "Copias")">
+        <input type="hidden" name="isFiltered" value="false" />
+        <button type="submit" class="btn btn-secondary">Mostrar Todas las Copias</button>
+    </form>
+}
+else
+{
+    <form method="post" action="@Url.Action("CopiasEnStock", "Copias")">
+        <input type="hidden" name="isFiltered" value="true" />
+        <button type="submit" class="btn btn-success">Copias en Stock</button>
+    </form>
+}
+
+<h1>Copias</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Detenida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Formato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPeliculaNavigation.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPeliculaNavigation.Calificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPeliculaNavigation.Anio)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detenida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Formato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioAlquiler)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Titulo)
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Calificacion)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Anio)
+                </th>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
